@@ -5,8 +5,8 @@ package ent
 import (
 	"time"
 
-	"github.com/antbiz/antadmin/system/ent/schema"
-	"github.com/antbiz/antadmin/system/ent/user"
+	"github.com/antbiz/antadmin/module/system/data/ent/schema"
+	"github.com/antbiz/antadmin/module/system/data/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

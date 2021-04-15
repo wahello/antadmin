@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/antbiz/antadmin/system/ent"
+	"github.com/antbiz/antadmin/module/system/data/ent"
 )
 
 // The UserFunc type is an adapter to allow the use of ordinary

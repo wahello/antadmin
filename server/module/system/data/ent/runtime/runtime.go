@@ -2,7 +2,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/antbiz/antadmin/system/ent/runtime.go
+// The schema-stitching logic is generated in github.com/antbiz/antadmin/module/system/data/ent/runtime.go
 
 const (
 	Version = "v0.8.0"                                          // Version of ent codegen.

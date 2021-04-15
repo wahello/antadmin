@@ -8,38 +8,51 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/antbiz/antadmin/system/ent/user"
+	"github.com/antbiz/antadmin/module/system/data/ent/user"
 )
 
 // User is the model entity for the User schema.
 type User struct {
-	config `json:"-"`
+	config `json:"-" v:"-"`
 	// ID of the ent.
+	// 编号
 	ID string `json:"id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
+	// 创建时间
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
+	// 更新时间
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// DeletedAt holds the value of the "deleted_at" field.
+	// 删除时间
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 	// CreatedBy holds the value of the "created_by" field.
+	// 创建者
 	CreatedBy string `json:"created_by,omitempty"`
 	// UpdatedBy holds the value of the "updated_by" field.
+	// 修改者
 	UpdatedBy string `json:"updated_by,omitempty"`
 	// Username holds the value of the "username" field.
-	Username string `json:"username,omitempty"`
+	// 用户名
+	Username string `json:"username" v:"required|length:2,16#用户名不能为空|用户名长度应当在:min到:max之前"`
 	// Password holds the value of the "password" field.
-	Password string `json:"-"`
+	// 密码
+	Password string `json:"-" v:"-"`
 	// Phone holds the value of the "phone" field.
-	Phone *string `json:"phone,omitempty"`
+	// 手机号
+	Phone *string `json:"phone,omitempty" v:"phone#手机号格式不正确"`
 	// Email holds the value of the "email" field.
-	Email *string `json:"email,omitempty"`
+	// 邮箱
+	Email *string `json:"email,omitempty" v:"email#邮箱格式不正确"`
 	// Avatar holds the value of the "avatar" field.
+	// 头像
 	Avatar string `json:"avatar,omitempty"`
 	// Gender holds the value of the "gender" field.
-	Gender int `json:"gender,omitempty"`
+	// 性别
+	Gender int `json:"gender" v:"between:0,2#性别参数大小为0到2"`
 	// Status holds the value of the "status" field.
-	Status int `json:"status,omitempty"`
+	// 用户状态
+	Status int `json:"status" v:"between:0,2#用户状态参数大小为0到2"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.

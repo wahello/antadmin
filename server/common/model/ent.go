@@ -20,18 +20,24 @@ func (CommonMixin) Fields() []ent.Field {
 		field.String("id").
 			DefaultFunc(func() string {
 				return guid.S()
-			}),
+			}).
+			Comment("编号"),
 		field.Time("created_at").
 			Immutable().
-			Default(time.Now),
+			Default(time.Now).
+			Comment("创建时间"),
 		field.Time("updated_at").
 			Default(time.Now).
-			UpdateDefault(time.Now),
+			UpdateDefault(time.Now).
+			Comment("更新时间"),
 		field.Time("deleted_at").
 			Optional().
-			Nillable(),
+			Nillable().
+			Comment("删除时间"),
 		field.String("created_by").
-			Immutable(),
-		field.String("updated_by"),
+			Immutable().
+			Comment("创建者"),
+		field.String("updated_by").
+			Comment("修改者"),
 	}
 }

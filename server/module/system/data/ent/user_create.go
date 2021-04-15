@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/antbiz/antadmin/system/ent/user"
+	"github.com/antbiz/antadmin/module/system/data/ent/user"
 )
 
 // UserCreate is the builder for creating a User entity.

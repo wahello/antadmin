@@ -10,7 +10,7 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/antbiz/antadmin/system/ent/user"
+	"github.com/antbiz/antadmin/module/system/data/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

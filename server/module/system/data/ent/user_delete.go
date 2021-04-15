@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/antbiz/antadmin/system/ent/predicate"
-	"github.com/antbiz/antadmin/system/ent/user"
+	"github.com/antbiz/antadmin/module/system/data/ent/predicate"
+	"github.com/antbiz/antadmin/module/system/data/ent/user"
 )
 
 // UserDelete is the builder for deleting a User entity.
