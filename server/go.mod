@@ -1,4 +1,4 @@
-module github.com/antbiz/anterp
+module github.com/antbiz/antadmin
 
 go 1.16
 
