@@ -1,0 +1,31 @@
+# HTTP Server
+[server]
+	Address       = ":8199"
+	ServerRoot    = "public"
+	ServerAgent   = "antapi"
+    SessionIdName = "x-antapi-sid"
+    LogPath       = "./log/server"
+
+# Logger.
+[logger]
+    Path        = "./log"
+    Level       = "all"
+    Stdout      = true
+
+# Template.
+[viewer]
+    Path        = "template"
+    DefaultFile = "index.html"
+    Delimiters  =  ["${", "}"]
+
+# Database.
+[database]
+    [database.logger]
+        Path   = "./log/sql"
+        Level  = "all"
+        Stdout = true
+    [database.default]
+        Type   = "mysql"
+        Name   = "antapi"
+        Link   = "root:1234567890@tcp(127.0.0.1:3306)/antapi"
+        Debug  = true

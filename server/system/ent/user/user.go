@@ -33,8 +33,6 @@ const (
 	FieldAvatar = "avatar"
 	// FieldGender holds the string denoting the gender field in the database.
 	FieldGender = "gender"
-	// FieldRemark holds the string denoting the remark field in the database.
-	FieldRemark = "remark"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
 	// Table holds the table name of the user in the database.
@@ -55,7 +53,6 @@ var Columns = []string{
 	FieldEmail,
 	FieldAvatar,
 	FieldGender,
-	FieldRemark,
 	FieldStatus,
 }
 
@@ -82,8 +79,12 @@ var (
 	PhoneValidator func(string) error
 	// DefaultGender holds the default value on creation for the "gender" field.
 	DefaultGender int
+	// GenderValidator is a validator for the "gender" field. It is called by the builders before save.
+	GenderValidator func(int) error
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus int
+	// StatusValidator is a validator for the "status" field. It is called by the builders before save.
+	StatusValidator func(int) error
 	// DefaultID holds the default value on creation for the "id" field.
 	DefaultID func() string
 )

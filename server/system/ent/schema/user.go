@@ -28,13 +28,22 @@ func (User) Fields() []ent.Field {
 		field.String("password").
 			Sensitive(),
 		field.String("phone").
-			MaxLen(11),
-		field.String("email"),
+			MaxLen(11).
+			Nillable().
+			Optional().
+			Unique(),
+		field.String("email").
+			Nillable().
+			Optional().
+			Unique(),
 		field.String("avatar"),
 		field.Int("gender").
+			Min(0).
+			Max(2).
 			Default(0),
-		field.String("remark"),
 		field.Int("status").
+			Min(0).
+			Max(2).
 			Default(0),
 	}
 }

@@ -18,11 +18,10 @@ var (
 		{Name: "updated_by", Type: field.TypeString},
 		{Name: "username", Type: field.TypeString, Unique: true},
 		{Name: "password", Type: field.TypeString},
-		{Name: "phone", Type: field.TypeString, Size: 11},
-		{Name: "email", Type: field.TypeString},
+		{Name: "phone", Type: field.TypeString, Unique: true, Nullable: true, Size: 11},
+		{Name: "email", Type: field.TypeString, Unique: true, Nullable: true},
 		{Name: "avatar", Type: field.TypeString},
 		{Name: "gender", Type: field.TypeInt, Default: 0},
-		{Name: "remark", Type: field.TypeString},
 		{Name: "status", Type: field.TypeInt, Default: 0},
 	}
 	// UsersTable holds the schema information for the "users" table.
