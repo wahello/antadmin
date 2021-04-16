@@ -1,36 +1,37 @@
 # HTTP Server
 [server]
-	address       = ":8199"
-	serverRoot    = "public"
+    address = ":8199"
     dumpRouterMap = false
-	serverAgent   = "antbiz"
+    logPath = "./log/server"
+    serverAgent = "antbiz"
+    serverRoot = "public"
     sessionIdName = "x-api-sid"
-    logPath       = "./log/server"
+    sessionPath = "./tmp/gsession"
 
 # Logger.
 [logger]
-    path        = "./log"
-    level       = "all"
-    stdout      = true
+    level = "all"
+    path = "./log"
+    stdout = true
 
 # Template.
 [viewer]
-    path        = "template"
     defaultFile = "index.html"
-    delimiters  =  ["${", "}"]
+    delimiters = ["${", "}"]
+    path = "template"
 
 # Database.
 [database]
     [database.logger]
-        path   = "./log/sql"
-        level  = "all"
+        level = "all"
+        path = "./log/sql"
         stdout = true
     [database.default]
-        type   = "mysql"
-        link   = "root:1234567890@tcp(127.0.0.1:3306)/antadmin"
-        debug  = true
+        debug = true
+        link = "root:1234567890@tcp(127.0.0.1:3306)/antadmin"
+        type = "mysql"
 
 # Redis数据库配置
 [redis]
+    cache = "127.0.0.1:6379,1,123456?idleTimeout=600"
     default = "127.0.0.1:6379,0"
-    cache   = "127.0.0.1:6379,1,123456?idleTimeout=600"
