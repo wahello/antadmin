@@ -81,7 +81,8 @@ func (a *userApi) UpdateUser(r *ghttp.Request) {
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
 			SetCode(errcode.ParameterBindError).
-			SetError(err)
+			SetError(err).
+			Json()
 	}
 
 	if req.Email != nil && !service.User.CheckEmail(r.Context(), *req.Email) {
@@ -181,7 +182,8 @@ func (a *userApi) UpdateUserStatus(r *ghttp.Request) {
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
 			SetCode(errcode.ParameterBindError).
-			SetError(err)
+			SetError(err).
+			Json()
 	}
 
 	if err := service.User.UpdateUserStatus(r.Context(), req); err != nil {
@@ -206,7 +208,8 @@ func (a *userApi) SignIn(r *ghttp.Request) {
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
 			SetCode(errcode.ParameterBindError).
-			SetError(err)
+			SetError(err).
+			Json()
 	}
 
 	user, err := service.User.FindUserByAccount(r.Context(), req.Account)
