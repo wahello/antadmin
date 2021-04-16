@@ -18,7 +18,7 @@ func getDriver(master bool) (drv *sql.Driver, err error) {
 		return nil, err
 	}
 
-	drv = sql.OpenDB(g.Cfg().GetString("database.default.name"), sqlDB)
+	drv = sql.OpenDB(g.Cfg().GetString("database.default.type"), sqlDB)
 	return
 }
 
