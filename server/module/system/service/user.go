@@ -136,3 +136,12 @@ func (s *userService) CheckEmail(ctx context.Context, email string) bool {
 	}
 	return qty == 0
 }
+
+// UpdateUserStatus 更新用户状态：启用/禁用
+func (s *userService) UpdateUserStatus(ctx context.Context, req *define.UpdateUserStatusRequest) error {
+	_, err := db.SystemClientMaster.User.
+		UpdateOneID(req.ID).
+		SetDisabled(req.Disabled).
+		Save(ctx)
+	return err
+}

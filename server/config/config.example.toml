@@ -29,3 +29,8 @@
         type   = "mysql"
         link   = "root:1234567890@tcp(127.0.0.1:3306)/antadmin"
         debug  = true
+
+# Redis数据库配置
+[redis]
+    default = "127.0.0.1:6379,0"
+    cache   = "127.0.0.1:6379,1,123456?idleTimeout=600"

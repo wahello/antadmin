@@ -8,6 +8,8 @@ import (
 
 // initSystemRouter 初始化系统模块路由
 func initSystemRouter(group *ghttp.RouterGroup) {
+	group.POST("/api/user/signin", api.User.SignIn)
+
 	group.Group("/api/system", func(group *ghttp.RouterGroup) {
 		group.Middleware(middleware.Auth)
 
@@ -16,6 +18,6 @@ func initSystemRouter(group *ghttp.RouterGroup) {
 		group.DELETE("/user/:id", api.User.DeleteUser)
 		group.GET("/user/:id", api.User.GetUser)
 		group.GET("/user", api.User.ListUser)
-		group.POST("/user/signin", api.User.SignIn)
+		group.POST("/user/disabled", api.User.UpdateUserStatus)
 	})
 }

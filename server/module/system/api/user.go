@@ -169,6 +169,31 @@ func (a *userApi) GetUser(r *ghttp.Request) {
 	}
 }
 
+// @summary 用户状态更新接口
+// @tags    用户服务
+// @produce json
+// @param   id formData string true "id"
+// @param   disabled formData bool true "是否禁用"
+// @router  /user/disabled [POST]
+// @success 200 {object} response.JsonResponse "执行结果"
+func (a *userApi) UpdateUserStatus(r *ghttp.Request) {
+	var req *define.UpdateUserStatusRequest
+	if err := r.Parse(&req); err != nil {
+		resp.Error(r).
+			SetCode(errcode.ParameterBindError).
+			SetError(err)
+	}
+
+	if err := service.User.UpdateUserStatus(r.Context(), req); err != nil {
+		resp.Error(r).
+			SetCode(errcode.DaoUpdateError).
+			SetMsg(errcode.DaoUpdateErrorMsg).
+			Json()
+	} else {
+		resp.Success(r).Json()
+	}
+}
+
 // @summary 用户登录接口
 // @tags    用户服务
 // @produce json

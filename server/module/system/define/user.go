@@ -21,6 +21,8 @@ type UpdateUserRequest struct {
 
 // UpdateUserStatusRequest 更新用户状态请求参数
 type UpdateUserStatusRequest struct {
+	ID       string `json:"id" v:"required#id不能为空"`
+	Disabled bool   `json:"disabled"`
 }
 
 // UserSignInRequest 用户登录请求参数
