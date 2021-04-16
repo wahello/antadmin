@@ -10,6 +10,7 @@
 .vscode/
 vender/
 log/
+tmp
 composer.lock
 gitpush.sh
 pkg/
