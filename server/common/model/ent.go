@@ -22,22 +22,22 @@ func (CommonMixin) Fields() []ent.Field {
 				return guid.S()
 			}).
 			Comment("编号"),
-		field.Time("created_at").
+		field.Time("createdAt").
 			Immutable().
 			Default(time.Now).
 			Comment("创建时间"),
-		field.Time("updated_at").
+		field.Time("updatedAt").
 			Default(time.Now).
 			UpdateDefault(time.Now).
 			Comment("更新时间"),
-		field.Time("deleted_at").
+		field.Time("deletedAt").
 			Optional().
 			Nillable().
 			Comment("删除时间"),
-		field.String("created_by").
+		field.String("createdBy").
 			Immutable().
 			Comment("创建者"),
-		field.String("updated_by").
+		field.String("updatedBy").
 			Comment("修改者"),
 	}
 }
