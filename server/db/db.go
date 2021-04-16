@@ -16,14 +16,15 @@ func InitClients() error {
 	if err != nil {
 		return err
 	}
+	SystemClientMaster = system.NewClient(masterDrv)
+
 	slaveDrv, err := GetSlaveDriver()
 	if err != nil {
 		g.Log().Errorf("init slave db failed: %v", err)
-		slaveDrv = masterDrv
+		SystemClientSalve = SystemClientMaster
+	} else {
+		SystemClientSalve = system.NewClient(slaveDrv)
 	}
-
-	SystemClientMaster = system.NewClient(masterDrv)
-	SystemClientSalve = system.NewClient(slaveDrv)
 
 	return nil
 }

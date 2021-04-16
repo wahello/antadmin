@@ -16,10 +16,7 @@ func NewClient(drv *sql.Driver) Client {
 	ent.Debug()
 
 	client := ent.NewClient(ent.Driver(drv))
-
-	defer client.Close()
-	ctx := context.Background()
-	if err := client.Schema.Create(ctx); err != nil {
+	if err := client.Schema.Create(context.Background()); err != nil {
 		g.Log().Fatalf("[Module System] - failed creating schema resources: %v", err)
 	}
 
