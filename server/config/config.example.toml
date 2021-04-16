@@ -5,11 +5,11 @@
     dumpRouterMap = false
 	serverAgent   = "antbiz"
     sessionIdName = "x-api-sid"
-    logPath       = "/log/server"
+    logPath       = "./log/server"
 
 # Logger.
 [logger]
-    path        = "/log"
+    path        = "./log"
     level       = "all"
     stdout      = true
 
@@ -22,7 +22,7 @@
 # Database.
 [database]
     [database.logger]
-        path   = "/log/sql"
+        path   = "./log/sql"
         level  = "all"
         stdout = true
     [database.default]
