@@ -8,6 +8,10 @@ services:
     environment:
       MYSQL_DATABASE: antadmin
       MYSQL_ROOT_PASSWORD: 1234567890
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+    security_opt:
+      - seccomp:unconfined
 
   redis:
     image: redis
