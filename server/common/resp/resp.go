@@ -1,6 +1,8 @@
 package resp
 
 import (
+	"fmt"
+
 	"github.com/gogf/gf/net/ghttp"
 	"github.com/gogf/gf/os/glog"
 	"github.com/gogf/gf/util/gvalid"
@@ -68,6 +70,11 @@ func (apiResp *apiResp) SetCode(code int) *apiResp {
 
 func (apiResp *apiResp) SetMsg(msg string) *apiResp {
 	apiResp.Msg = msg
+	return apiResp
+}
+
+func (apiResp *apiResp) SetMsgf(format string, v ...interface{}) *apiResp {
+	apiResp.Msg = fmt.Sprintf(format, v...)
 	return apiResp
 }
 

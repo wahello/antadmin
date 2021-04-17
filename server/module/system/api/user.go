@@ -37,21 +37,21 @@ func (a *userApi) CreateUser(r *ghttp.Request) {
 	if !service.User.CheckUsername(r.Context(), req.Username) {
 		resp.Error(r).
 			SetCode(errcode.ExistsUserName).
-			SetMsg(errcode.ExistsUserNameMsg).
+			SetMsgf(errcode.ExistsUserNameMsg, req.Username).
 			Json()
 	}
 
 	if req.Email != nil && !service.User.CheckEmail(r.Context(), *req.Email) {
 		resp.Error(r).
 			SetCode(errcode.ExistsUserEmail).
-			SetMsg(errcode.ExistsUserEmailMsg).
+			SetMsgf(errcode.ExistsUserEmailMsg, *req.Email).
 			Json()
 	}
 
 	if req.Phone != nil && !service.User.CheckPhone(r.Context(), *req.Phone) {
 		resp.Error(r).
 			SetCode(errcode.ExistsUserPhone).
-			SetMsg(errcode.ExistsUserPhoneMsg).
+			SetMsgf(errcode.ExistsUserPhoneMsg, *req.Phone).
 			Json()
 	}
 
