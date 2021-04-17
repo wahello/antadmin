@@ -30,10 +30,6 @@ func init() {
 	user.DefaultUpdatedAt = userDescUpdatedAt.Default.(func() time.Time)
 	// user.UpdateDefaultUpdatedAt holds the default value on update for the updatedAt field.
 	user.UpdateDefaultUpdatedAt = userDescUpdatedAt.UpdateDefault.(func() time.Time)
-	// userDescCreatedBy is the schema descriptor for createdBy field.
-	userDescCreatedBy := userMixinFields0[4].Descriptor()
-	// user.DefaultCreatedBy holds the default value on creation for the createdBy field.
-	user.DefaultCreatedBy = userDescCreatedBy.Default.(string)
 	// userDescUsername is the schema descriptor for username field.
 	userDescUsername := userFields[0].Descriptor()
 	// user.UsernameValidator is a validator for the "username" field. It is called by the builders before save.

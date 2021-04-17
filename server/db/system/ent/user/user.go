@@ -82,8 +82,6 @@ var (
 	DefaultUpdatedAt func() time.Time
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updatedAt" field.
 	UpdateDefaultUpdatedAt func() time.Time
-	// DefaultCreatedBy holds the default value on creation for the "createdBy" field.
-	DefaultCreatedBy string
 	// UsernameValidator is a validator for the "username" field. It is called by the builders before save.
 	UsernameValidator func(string) error
 	// PhoneValidator is a validator for the "phone" field. It is called by the builders before save.
