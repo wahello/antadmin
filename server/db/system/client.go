@@ -13,9 +13,7 @@ type Client *ent.Client
 
 // NewClient .
 func NewClient(drv *sql.Driver) Client {
-	ent.Debug()
-
-	client := ent.NewClient(ent.Driver(drv))
+	client := ent.NewClient(ent.Driver(drv)).Debug()
 	if err := client.Schema.Create(context.Background()); err != nil {
 		g.Log().Fatalf("[Module System] - failed creating schema resources: %v", err)
 	}

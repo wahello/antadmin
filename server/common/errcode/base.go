@@ -41,7 +41,7 @@ const (
 	TooManyRequestsMsg    = "当前请求过多，系统繁忙"
 	CallHTTPErrorMsg      = "调用第三方HTTP接口失败"
 	DatabaseErrorMsg      = "数据库错误"
-	DaoCreateErrorMsg     = "添加失败"
+	DaoCreateErrorMsg     = "创建失败"
 	DaoUpdateErrorMsg     = "更新失败"
 	DaoDeleteErrorMsg     = "删除失败"
 	DaoGetErrorMsg        = "查询详情失败"

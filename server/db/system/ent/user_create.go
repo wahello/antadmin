@@ -68,6 +68,14 @@ func (uc *UserCreate) SetCreatedBy(s string) *UserCreate {
 	return uc
 }
 
+// SetNillableCreatedBy sets the "createdBy" field if the given value is not nil.
+func (uc *UserCreate) SetNillableCreatedBy(s *string) *UserCreate {
+	if s != nil {
+		uc.SetCreatedBy(*s)
+	}
+	return uc
+}
+
 // SetUpdatedBy sets the "updatedBy" field.
 func (uc *UserCreate) SetUpdatedBy(s string) *UserCreate {
 	uc.mutation.SetUpdatedBy(s)
@@ -221,6 +229,10 @@ func (uc *UserCreate) defaults() {
 	if _, ok := uc.mutation.UpdatedAt(); !ok {
 		v := user.DefaultUpdatedAt()
 		uc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := uc.mutation.CreatedBy(); !ok {
+		v := user.DefaultCreatedBy
+		uc.mutation.SetCreatedBy(v)
 	}
 	if _, ok := uc.mutation.Gender(); !ok {
 		v := user.DefaultGender

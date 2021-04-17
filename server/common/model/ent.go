@@ -1,11 +1,14 @@
 package model
 
 import (
+	"context"
 	"time"
 
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
+	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
+	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/util/guid"
 )
 
@@ -35,9 +38,34 @@ func (CommonMixin) Fields() []ent.Field {
 			Nillable().
 			Comment("删除时间"),
 		field.String("createdBy").
+			Default("").
 			Immutable().
 			Comment("创建者"),
 		field.String("updatedBy").
 			Comment("修改者"),
+	}
+}
+
+// Indexes .
+func (CommonMixin) Indexes() []ent.Index {
+	return []ent.Index{
+		index.Fields("createdAt"),
+		index.Fields("createdBy"),
+	}
+}
+
+// Hooks .
+func (CommonMixin) Hooks() []ent.Hook {
+	return []ent.Hook{
+		func(next ent.Mutator) ent.Mutator {
+			return ent.MutateFunc(func(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+				v, err := next.Mutate(ctx, m)
+				if err != nil {
+					g.DB().GetLogger().Error(err)
+					return nil, err
+				}
+				return v, nil
+			})
+		},
 	}
 }

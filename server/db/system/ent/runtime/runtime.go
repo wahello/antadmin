@@ -2,7 +2,75 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/antbiz/antadmin/db/system/ent/runtime.go
+import (
+	"time"
+
+	"github.com/antbiz/antadmin/db/system/ent/schema"
+	"github.com/antbiz/antadmin/db/system/ent/user"
+)
+
+// The init function reads all schema descriptors with runtime code
+// (default values, validators, hooks and policies) and stitches it
+// to their package variables.
+func init() {
+	userMixin := schema.User{}.Mixin()
+	userMixinHooks0 := userMixin[0].Hooks()
+	user.Hooks[0] = userMixinHooks0[0]
+	userMixinFields0 := userMixin[0].Fields()
+	_ = userMixinFields0
+	userFields := schema.User{}.Fields()
+	_ = userFields
+	// userDescCreatedAt is the schema descriptor for createdAt field.
+	userDescCreatedAt := userMixinFields0[1].Descriptor()
+	// user.DefaultCreatedAt holds the default value on creation for the createdAt field.
+	user.DefaultCreatedAt = userDescCreatedAt.Default.(func() time.Time)
+	// userDescUpdatedAt is the schema descriptor for updatedAt field.
+	userDescUpdatedAt := userMixinFields0[2].Descriptor()
+	// user.DefaultUpdatedAt holds the default value on creation for the updatedAt field.
+	user.DefaultUpdatedAt = userDescUpdatedAt.Default.(func() time.Time)
+	// user.UpdateDefaultUpdatedAt holds the default value on update for the updatedAt field.
+	user.UpdateDefaultUpdatedAt = userDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// userDescCreatedBy is the schema descriptor for createdBy field.
+	userDescCreatedBy := userMixinFields0[4].Descriptor()
+	// user.DefaultCreatedBy holds the default value on creation for the createdBy field.
+	user.DefaultCreatedBy = userDescCreatedBy.Default.(string)
+	// userDescUsername is the schema descriptor for username field.
+	userDescUsername := userFields[0].Descriptor()
+	// user.UsernameValidator is a validator for the "username" field. It is called by the builders before save.
+	user.UsernameValidator = userDescUsername.Validators[0].(func(string) error)
+	// userDescPhone is the schema descriptor for phone field.
+	userDescPhone := userFields[2].Descriptor()
+	// user.PhoneValidator is a validator for the "phone" field. It is called by the builders before save.
+	user.PhoneValidator = userDescPhone.Validators[0].(func(string) error)
+	// userDescGender is the schema descriptor for gender field.
+	userDescGender := userFields[5].Descriptor()
+	// user.DefaultGender holds the default value on creation for the gender field.
+	user.DefaultGender = userDescGender.Default.(int)
+	// user.GenderValidator is a validator for the "gender" field. It is called by the builders before save.
+	user.GenderValidator = func() func(int) error {
+		validators := userDescGender.Validators
+		fns := [...]func(int) error{
+			validators[0].(func(int) error),
+			validators[1].(func(int) error),
+		}
+		return func(gender int) error {
+			for _, fn := range fns {
+				if err := fn(gender); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// userDescDisabled is the schema descriptor for disabled field.
+	userDescDisabled := userFields[6].Descriptor()
+	// user.DefaultDisabled holds the default value on creation for the disabled field.
+	user.DefaultDisabled = userDescDisabled.Default.(bool)
+	// userDescID is the schema descriptor for id field.
+	userDescID := userMixinFields0[0].Descriptor()
+	// user.DefaultID holds the default value on creation for the id field.
+	user.DefaultID = userDescID.Default.(func() string)
+}
 
 const (
 	Version = "v0.8.0"                                          // Version of ent codegen.
