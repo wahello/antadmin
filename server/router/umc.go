@@ -8,7 +8,12 @@ import (
 
 // initUmcRouter .
 func initUmcRouter(group *ghttp.RouterGroup) {
-	group.POST("/api/user/signin", api.User.SignIn)
+	group.Group("/api/user", func(group *ghttp.RouterGroup) {
+		group.POST("/signin", api.User.SignIn)
+
+		group.Middleware(middleware.Auth)
+		group.GET("/profile", api.User.Profile)
+	})
 
 	group.Group("/api/umc", func(group *ghttp.RouterGroup) {
 		group.Middleware(middleware.Auth)

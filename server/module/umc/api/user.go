@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/antbiz/antadmin/common/errcode"
 	"github.com/antbiz/antadmin/common/resp"
+	"github.com/antbiz/antadmin/common/shared"
 	"github.com/antbiz/antadmin/module/umc/define"
 	"github.com/antbiz/antadmin/module/umc/service"
 	"github.com/gogf/gf/frame/g"
@@ -239,4 +240,29 @@ func (a *userApi) SignIn(r *ghttp.Request) {
 	resp.Success(r).
 		SetData(sidInfo).
 		Json()
+}
+
+// @summary 当前回话用户详情接口
+// @tags    用户服务
+// @produce json
+// @router  /user/profile [GET]
+// @success 200 {object} response.JsonResponse "执行结果"
+func (a *userApi) Profile(r *ghttp.Request) {
+	if customCtx := shared.Context.Get(r.Context()); customCtx != nil && customCtx.User != nil {
+		if res, err := service.User.GetUser(r.Context(), customCtx.User.ID); err != nil {
+			resp.Error(r).
+				SetCode(errcode.DaoGetError).
+				SetMsg(errcode.DaoGetErrorMsg).
+				Json()
+		} else {
+			resp.Success(r).
+				SetData(res).
+				Json()
+		}
+	} else {
+		resp.Error(r).
+			SetCode(errcode.AuthorizationError).
+			SetMsg(errcode.AuthorizationErrorMsg).
+			Json()
+	}
 }
