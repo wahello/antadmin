@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/antbiz/antadmin/db"
-	"github.com/antbiz/antadmin/db/system/ent"
-	"github.com/antbiz/antadmin/db/system/ent/user"
-	"github.com/antbiz/antadmin/module/system/define"
+	"github.com/antbiz/antadmin/db/upms/ent"
+	"github.com/antbiz/antadmin/db/upms/ent/user"
+	"github.com/antbiz/antadmin/module/upms/define"
 	"github.com/gogf/gf/crypto/gmd5"
 )
 

@@ -86,12 +86,12 @@ func (BaseMixin) Hooks() []ent.Hook {
 
 				switch op := m.Op(); {
 				case op.Is(ent.OpCreate):
-					bm.SetCreatedAt(time.Now())
+					// bm.SetCreatedAt(time.Now())
 					if _, exists := bm.CreatedBy(); !exists {
 						bm.SetCreatedBy(username)
 					}
 				case op.Is(ent.OpUpdateOne | ent.OpUpdate):
-					bm.SetUpdatedAt(time.Now())
+					// bm.SetUpdatedAt(time.Now())
 					if _, exists := bm.UpdatedBy(); !exists {
 						bm.SetUpdatedBy(username)
 					}

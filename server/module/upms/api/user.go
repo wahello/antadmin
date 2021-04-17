@@ -3,8 +3,8 @@ package api
 import (
 	"github.com/antbiz/antadmin/common/errcode"
 	"github.com/antbiz/antadmin/common/resp"
-	"github.com/antbiz/antadmin/module/system/define"
-	"github.com/antbiz/antadmin/module/system/service"
+	"github.com/antbiz/antadmin/module/upms/define"
+	"github.com/antbiz/antadmin/module/upms/service"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 )

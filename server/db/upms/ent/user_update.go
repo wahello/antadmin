@@ -10,8 +10,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/antbiz/antadmin/db/system/ent/predicate"
-	"github.com/antbiz/antadmin/db/system/ent/user"
+	"github.com/antbiz/antadmin/db/upms/ent/predicate"
+	"github.com/antbiz/antadmin/db/upms/ent/user"
 )
 
 // UserUpdate is the builder for updating User entities.

@@ -5,8 +5,8 @@ package runtime
 import (
 	"time"
 
-	"github.com/antbiz/antadmin/db/system/ent/schema"
-	"github.com/antbiz/antadmin/db/system/ent/user"
+	"github.com/antbiz/antadmin/db/upms/ent/schema"
+	"github.com/antbiz/antadmin/db/upms/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

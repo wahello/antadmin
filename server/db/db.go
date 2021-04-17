@@ -1,7 +1,7 @@
 package db
 
 import (
-	"github.com/antbiz/antadmin/db/system"
+	"github.com/antbiz/antadmin/db/upms"
 	"github.com/gogf/gf/frame/g"
 )
 

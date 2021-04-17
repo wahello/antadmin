@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/antbiz/antadmin/db/system/ent"
-	_ "github.com/antbiz/antadmin/db/system/ent/runtime"
+	"github.com/antbiz/antadmin/db/upms/ent"
+	_ "github.com/antbiz/antadmin/db/upms/ent/runtime"
 	"github.com/gogf/gf/frame/g"
 )
 

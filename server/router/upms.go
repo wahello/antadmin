@@ -2,15 +2,15 @@ package router
 
 import (
 	"github.com/antbiz/antadmin/middleware"
-	"github.com/antbiz/antadmin/module/system/api"
+	"github.com/antbiz/antadmin/module/upms/api"
 	"github.com/gogf/gf/net/ghttp"
 )
 
-// initSystemRouter 初始化系统模块路由
-func initSystemRouter(group *ghttp.RouterGroup) {
+// initUPMSRouter .
+func initUPMSRouter(group *ghttp.RouterGroup) {
 	group.POST("/api/user/signin", api.User.SignIn)
 
-	group.Group("/api/system", func(group *ghttp.RouterGroup) {
+	group.Group("/api/upms", func(group *ghttp.RouterGroup) {
 		group.Middleware(middleware.Auth)
 
 		group.POST("/user", api.User.CreateUser)

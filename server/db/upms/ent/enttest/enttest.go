@@ -5,9 +5,9 @@ package enttest
 import (
 	"context"
 
-	"github.com/antbiz/antadmin/db/system/ent"
+	"github.com/antbiz/antadmin/db/upms/ent"
 	// required by schema hooks.
-	_ "github.com/antbiz/antadmin/db/system/ent/runtime"
+	_ "github.com/antbiz/antadmin/db/upms/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

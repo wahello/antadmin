@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/antbiz/antadmin/db/system/ent/predicate"
-	"github.com/antbiz/antadmin/db/system/ent/user"
+	"github.com/antbiz/antadmin/db/upms/ent/predicate"
+	"github.com/antbiz/antadmin/db/upms/ent/user"
 
 	"entgo.io/ent"
 )

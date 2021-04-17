@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/antbiz/antadmin/db/system/ent/migrate"
+	"github.com/antbiz/antadmin/db/upms/ent/migrate"
 
-	"github.com/antbiz/antadmin/db/system/ent/user"
+	"github.com/antbiz/antadmin/db/upms/ent/user"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
