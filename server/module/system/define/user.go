@@ -3,7 +3,7 @@ package define
 // CreateUserRequest 创建用户请求参数
 type CreateUserRequest struct {
 	Username string  `json:"username" v:"required|length:2,16#请输入用户名|用户名长度应当在:min到:max之前"`
-	Password string  `json:"password" v:"required|password2#请输入密码|密码安全等级过低"`
+	Password string  `json:"password" v:"required|password#请输入密码|密码安全等级过低"`
 	Phone    *string `json:"phone,omitempty" v:"phone#手机号格式不正确"`
 	Email    *string `json:"email,omitempty" v:"email#邮箱格式不正确"`
 	Avatar   string  `json:"avatar,omitempty"`

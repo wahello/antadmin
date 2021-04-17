@@ -26,8 +26,8 @@ func (s *userService) CreateUser(ctx context.Context, req *define.CreateUserRequ
 		Create().
 		SetUsername(req.Username).
 		SetPassword(s.EncryptPassword(req.Username, req.Password)).
-		SetPhone(*req.Phone).
-		SetEmail(*req.Email).
+		SetNillablePhone(req.Phone).
+		SetNillableEmail(req.Email).
 		SetAvatar(req.Avatar).
 		SetGender(req.Gender).
 		Save(ctx)
@@ -38,8 +38,8 @@ func (s *userService) CreateUser(ctx context.Context, req *define.CreateUserRequ
 func (s *userService) UpdateUser(ctx context.Context, req *define.UpdateUserRequest) (res *ent.User, err error) {
 	res, err = db.SystemClientMaster.User.
 		UpdateOneID(req.ID).
-		SetPhone(*req.Phone).
-		SetEmail(*req.Email).
+		SetNillablePhone(req.Phone).
+		SetNillableEmail(req.Email).
 		SetAvatar(req.Avatar).
 		SetGender(req.Gender).
 		Save(ctx)
