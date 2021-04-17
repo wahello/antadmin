@@ -28,7 +28,7 @@
         stdout = true
     [database.default]
         debug = true
-        link = "root:1234567890@tcp(127.0.0.1:3306)/antadmin"
+        link = "root:1234567890@tcp(127.0.0.1:3306)/antadmin?parseTime=true"
         type = "mysql"
 
 # Redis数据库配置

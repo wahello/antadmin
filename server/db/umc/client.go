@@ -15,6 +15,18 @@ type Client *ent.Client
 // NewClient .
 func NewClient(drv *sql.Driver) Client {
 	client := ent.NewClient(ent.Driver(drv)).Debug()
+
+	client.Use(func(next ent.Mutator) ent.Mutator {
+		return ent.MutateFunc(func(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+			v, err := next.Mutate(ctx, m)
+			if err != nil {
+				g.DB().GetLogger().Error(err)
+				return nil, err
+			}
+			return v, nil
+		})
+	})
+
 	if err := client.Schema.Create(context.Background()); err != nil {
 		g.Log().Fatalf("[Module UPMS] - failed creating schema resources: %v", err)
 	}
