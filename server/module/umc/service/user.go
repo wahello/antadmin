@@ -35,9 +35,9 @@ func (s *userService) CreateUser(ctx context.Context, req *define.CreateUserRequ
 }
 
 // UpdateUser 更新用户
-func (s *userService) UpdateUser(ctx context.Context, req *define.UpdateUserRequest) (res *ent.User, err error) {
+func (s *userService) UpdateUser(ctx context.Context, id string, req *define.UpdateUserRequest) (res *ent.User, err error) {
 	res, err = db.UmcClientMaster.User.
-		UpdateOneID(req.ID).
+		UpdateOneID(id).
 		SetNillablePhone(req.Phone).
 		SetNillableEmail(req.Email).
 		SetAvatar(req.Avatar).

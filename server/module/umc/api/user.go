@@ -11,22 +11,12 @@ import (
 )
 
 // User 用户接口管理
-var User = userApi{}
+var User = userAPI{}
 
-type userApi struct{}
+type userAPI struct{}
 
-// @summary 用户创建接口
-// @tags    用户服务
-// @produce json
-// @param   username formData string true "用户名"
-// @param   password formData string true "明文密码"
-// @param   phone formData string false "手机号"
-// @param   email formData string false "邮箱"
-// @param   avatar formData string false "头像"
-// @param   gender formData int false "性别"
-// @router  /user [POST]
-// @success 200 {object} response.JsonResponse "执行结果"
-func (a *userApi) CreateUser(r *ghttp.Request) {
+// CreateUser 创建用户
+func (userAPI) CreateUser(r *ghttp.Request) {
 	var req *define.CreateUserRequest
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
@@ -68,17 +58,10 @@ func (a *userApi) CreateUser(r *ghttp.Request) {
 	}
 }
 
-// @summary 用户信息更新接口
-// @tags    用户服务
-// @produce json
-// @param   phone formData string false "手机号"
-// @param   email formData string false "邮箱"
-// @param   avatar formData string false "头像"
-// @param   gender formData int false "性别"
-// @router  /user [PUT]
-// @success 200 {object} response.JsonResponse "执行结果"
-func (a *userApi) UpdateUser(r *ghttp.Request) {
+// UpdateUser 修改用户信息
+func (userAPI) UpdateUser(r *ghttp.Request) {
 	var req *define.UpdateUserRequest
+	id := r.GetString("id")
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
 			SetCode(errcode.ParameterBindError).
@@ -100,7 +83,7 @@ func (a *userApi) UpdateUser(r *ghttp.Request) {
 			Json()
 	}
 
-	if res, err := service.User.UpdateUser(r.Context(), req); err != nil {
+	if res, err := service.User.UpdateUser(r.Context(), id, req); err != nil {
 		resp.Error(r).
 			SetCode(errcode.DaoUpdateError).
 			SetMsg(errcode.DaoUpdateErrorMsg).
@@ -112,12 +95,8 @@ func (a *userApi) UpdateUser(r *ghttp.Request) {
 	}
 }
 
-// @summary 用户删除接口
-// @tags    用户服务
-// @produce json
-// @router  /user/:id [DELETE]
-// @success 200 {object} response.JsonResponse "执行结果"
-func (a *userApi) DeleteUser(r *ghttp.Request) {
+// DeleteUser 删除用户
+func (userAPI) DeleteUser(r *ghttp.Request) {
 	id := r.GetString("id")
 	if err := service.User.DeleteUser(r.Context(), id); err != nil {
 		resp.Error(r).
@@ -129,12 +108,8 @@ func (a *userApi) DeleteUser(r *ghttp.Request) {
 	}
 }
 
-// @summary 用户列表接口
-// @tags    用户服务
-// @produce json
-// @router  /user [GET]
-// @success 200 {object} response.JsonResponse "执行结果"
-func (a *userApi) ListUser(r *ghttp.Request) {
+// ListUser 用户列表
+func (userAPI) ListUser(r *ghttp.Request) {
 	if res, qty, err := service.User.ListUser(r.Context()); err != nil {
 		resp.Error(r).
 			SetCode(errcode.DaoListError).
@@ -152,12 +127,8 @@ func (a *userApi) ListUser(r *ghttp.Request) {
 	}
 }
 
-// @summary 用户详情接口
-// @tags    用户服务
-// @produce json
-// @router  /user/:id [GET]
-// @success 200 {object} response.JsonResponse "执行结果"
-func (a *userApi) GetUser(r *ghttp.Request) {
+// GetUser 用户详情
+func (userAPI) GetUser(r *ghttp.Request) {
 	id := r.GetString("id")
 	if res, err := service.User.GetUser(r.Context(), id); err != nil {
 		resp.Error(r).
@@ -171,14 +142,8 @@ func (a *userApi) GetUser(r *ghttp.Request) {
 	}
 }
 
-// @summary 用户状态更新接口
-// @tags    用户服务
-// @produce json
-// @param   id formData string true "id"
-// @param   disabled formData bool true "是否禁用"
-// @router  /user/disabled [POST]
-// @success 200 {object} response.JsonResponse "执行结果"
-func (a *userApi) UpdateUserStatus(r *ghttp.Request) {
+// UpdateUserStatus 禁用或启用某个用户
+func (userAPI) UpdateUserStatus(r *ghttp.Request) {
 	var req *define.UpdateUserStatusRequest
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
@@ -197,14 +162,8 @@ func (a *userApi) UpdateUserStatus(r *ghttp.Request) {
 	}
 }
 
-// @summary 用户登录接口
-// @tags    用户服务
-// @produce json
-// @param   login formData string true "用户名/手机号/邮箱"
-// @param   password formData string true "用户密码"
-// @router  /user/signin [POST]
-// @success 200 {object} response.JsonResponse "执行结果"
-func (a *userApi) SignIn(r *ghttp.Request) {
+// SignIn 用户登录
+func (userAPI) SignIn(r *ghttp.Request) {
 	var req *define.UserSignInRequest
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
@@ -242,12 +201,8 @@ func (a *userApi) SignIn(r *ghttp.Request) {
 		Json()
 }
 
-// @summary 当前回话用户详情接口
-// @tags    用户服务
-// @produce json
-// @router  /user/profile [GET]
-// @success 200 {object} response.JsonResponse "执行结果"
-func (a *userApi) Profile(r *ghttp.Request) {
+// Profile 当前会话用户详情
+func (userAPI) Profile(r *ghttp.Request) {
 	if customCtx := shared.Context.Get(r.Context()); customCtx != nil && customCtx.User != nil {
 		if res, err := service.User.GetUser(r.Context(), customCtx.User.ID); err != nil {
 			resp.Error(r).

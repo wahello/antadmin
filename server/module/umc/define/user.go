@@ -12,7 +12,6 @@ type CreateUserRequest struct {
 
 // UpdateUserRequest 更新用户请求参数
 type UpdateUserRequest struct {
-	ID     string  `json:"id" v:"required#id不能为空"`
 	Phone  *string `json:"phone,omitempty" v:"phone#手机号格式不正确"`
 	Email  *string `json:"email,omitempty" v:"email#邮箱格式不正确"`
 	Avatar string  `json:"avatar,omitempty"`
