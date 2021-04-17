@@ -1,11 +1,11 @@
-package system
+package umc
 
 import (
 	"context"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/antbiz/antadmin/db/upms/ent"
-	_ "github.com/antbiz/antadmin/db/upms/ent/runtime"
+	"github.com/antbiz/antadmin/db/umc/ent"
+	_ "github.com/antbiz/antadmin/db/umc/ent/runtime"
 	"github.com/gogf/gf/frame/g"
 )
 
@@ -16,7 +16,7 @@ type Client *ent.Client
 func NewClient(drv *sql.Driver) Client {
 	client := ent.NewClient(ent.Driver(drv)).Debug()
 	if err := client.Schema.Create(context.Background()); err != nil {
-		g.Log().Fatalf("[Module System] - failed creating schema resources: %v", err)
+		g.Log().Fatalf("[Module UPMS] - failed creating schema resources: %v", err)
 	}
 
 	return client

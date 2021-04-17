@@ -15,7 +15,7 @@ func init() {
 			middleware.ErrorHandler,
 		)
 
-		// 初始化用户相关模块路由
-		initUPMSRouter(group)
+		// 初始化用户管理模块路由
+		initUmcRouter(group)
 	})
 }

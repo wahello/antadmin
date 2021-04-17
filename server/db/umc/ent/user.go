@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/antbiz/antadmin/db/upms/ent/user"
+	"github.com/antbiz/antadmin/db/umc/ent/user"
 )
 
 // User is the model entity for the User schema.

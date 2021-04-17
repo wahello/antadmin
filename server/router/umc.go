@@ -2,15 +2,15 @@ package router
 
 import (
 	"github.com/antbiz/antadmin/middleware"
-	"github.com/antbiz/antadmin/module/upms/api"
+	"github.com/antbiz/antadmin/module/umc/api"
 	"github.com/gogf/gf/net/ghttp"
 )
 
-// initUPMSRouter .
-func initUPMSRouter(group *ghttp.RouterGroup) {
+// initUmcRouter .
+func initUmcRouter(group *ghttp.RouterGroup) {
 	group.POST("/api/user/signin", api.User.SignIn)
 
-	group.Group("/api/upms", func(group *ghttp.RouterGroup) {
+	group.Group("/api/umc", func(group *ghttp.RouterGroup) {
 		group.Middleware(middleware.Auth)
 
 		group.POST("/user", api.User.CreateUser)

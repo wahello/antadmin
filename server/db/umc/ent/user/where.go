@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/antbiz/antadmin/db/upms/ent/predicate"
+	"github.com/antbiz/antadmin/db/umc/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

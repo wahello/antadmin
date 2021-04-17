@@ -1,13 +1,13 @@
 package db
 
 import (
-	"github.com/antbiz/antadmin/db/upms"
+	"github.com/antbiz/antadmin/db/umc"
 	"github.com/gogf/gf/frame/g"
 )
 
 var (
-	SystemClientMaster system.Client
-	SystemClientSalve  system.Client
+	UmcClientMaster umc.Client
+	UmcClientSalve  umc.Client
 )
 
 // InitClients 初始化全部 ent client
@@ -16,14 +16,14 @@ func InitClients() error {
 	if err != nil {
 		return err
 	}
-	SystemClientMaster = system.NewClient(masterDrv)
+	UmcClientMaster = umc.NewClient(masterDrv)
 
 	slaveDrv, err := GetSlaveDriver()
 	if err != nil {
 		g.Log().Errorf("init slave db failed: %v", err)
-		SystemClientSalve = SystemClientMaster
+		UmcClientSalve = UmcClientMaster
 	} else {
-		SystemClientSalve = system.NewClient(slaveDrv)
+		UmcClientSalve = umc.NewClient(slaveDrv)
 	}
 
 	return nil
