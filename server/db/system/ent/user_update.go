@@ -59,9 +59,37 @@ func (uu *UserUpdate) SetCreatedBy(s string) *UserUpdate {
 	return uu
 }
 
+// SetNillableCreatedBy sets the "createdBy" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableCreatedBy(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetCreatedBy(*s)
+	}
+	return uu
+}
+
+// ClearCreatedBy clears the value of the "createdBy" field.
+func (uu *UserUpdate) ClearCreatedBy() *UserUpdate {
+	uu.mutation.ClearCreatedBy()
+	return uu
+}
+
 // SetUpdatedBy sets the "updatedBy" field.
 func (uu *UserUpdate) SetUpdatedBy(s string) *UserUpdate {
 	uu.mutation.SetUpdatedBy(s)
+	return uu
+}
+
+// SetNillableUpdatedBy sets the "updatedBy" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableUpdatedBy(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetUpdatedBy(*s)
+	}
+	return uu
+}
+
+// ClearUpdatedBy clears the value of the "updatedBy" field.
+func (uu *UserUpdate) ClearUpdatedBy() *UserUpdate {
+	uu.mutation.ClearUpdatedBy()
 	return uu
 }
 
@@ -114,6 +142,20 @@ func (uu *UserUpdate) ClearEmail() *UserUpdate {
 // SetAvatar sets the "avatar" field.
 func (uu *UserUpdate) SetAvatar(s string) *UserUpdate {
 	uu.mutation.SetAvatar(s)
+	return uu
+}
+
+// SetNillableAvatar sets the "avatar" field if the given value is not nil.
+func (uu *UserUpdate) SetNillableAvatar(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetAvatar(*s)
+	}
+	return uu
+}
+
+// ClearAvatar clears the value of the "avatar" field.
+func (uu *UserUpdate) ClearAvatar() *UserUpdate {
+	uu.mutation.ClearAvatar()
 	return uu
 }
 
@@ -283,10 +325,22 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldCreatedBy,
 		})
 	}
+	if uu.mutation.CreatedByCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldCreatedBy,
+		})
+	}
 	if value, ok := uu.mutation.UpdatedBy(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldUpdatedBy,
+		})
+	}
+	if uu.mutation.UpdatedByCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldUpdatedBy,
 		})
 	}
@@ -327,6 +381,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldAvatar,
+		})
+	}
+	if uu.mutation.AvatarCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldAvatar,
 		})
 	}
@@ -402,9 +462,37 @@ func (uuo *UserUpdateOne) SetCreatedBy(s string) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableCreatedBy sets the "createdBy" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableCreatedBy(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetCreatedBy(*s)
+	}
+	return uuo
+}
+
+// ClearCreatedBy clears the value of the "createdBy" field.
+func (uuo *UserUpdateOne) ClearCreatedBy() *UserUpdateOne {
+	uuo.mutation.ClearCreatedBy()
+	return uuo
+}
+
 // SetUpdatedBy sets the "updatedBy" field.
 func (uuo *UserUpdateOne) SetUpdatedBy(s string) *UserUpdateOne {
 	uuo.mutation.SetUpdatedBy(s)
+	return uuo
+}
+
+// SetNillableUpdatedBy sets the "updatedBy" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableUpdatedBy(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetUpdatedBy(*s)
+	}
+	return uuo
+}
+
+// ClearUpdatedBy clears the value of the "updatedBy" field.
+func (uuo *UserUpdateOne) ClearUpdatedBy() *UserUpdateOne {
+	uuo.mutation.ClearUpdatedBy()
 	return uuo
 }
 
@@ -457,6 +545,20 @@ func (uuo *UserUpdateOne) ClearEmail() *UserUpdateOne {
 // SetAvatar sets the "avatar" field.
 func (uuo *UserUpdateOne) SetAvatar(s string) *UserUpdateOne {
 	uuo.mutation.SetAvatar(s)
+	return uuo
+}
+
+// SetNillableAvatar sets the "avatar" field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableAvatar(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetAvatar(*s)
+	}
+	return uuo
+}
+
+// ClearAvatar clears the value of the "avatar" field.
+func (uuo *UserUpdateOne) ClearAvatar() *UserUpdateOne {
+	uuo.mutation.ClearAvatar()
 	return uuo
 }
 
@@ -650,10 +752,22 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldCreatedBy,
 		})
 	}
+	if uuo.mutation.CreatedByCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldCreatedBy,
+		})
+	}
 	if value, ok := uuo.mutation.UpdatedBy(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldUpdatedBy,
+		})
+	}
+	if uuo.mutation.UpdatedByCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldUpdatedBy,
 		})
 	}
@@ -694,6 +808,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldAvatar,
+		})
+	}
+	if uuo.mutation.AvatarCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldAvatar,
 		})
 	}

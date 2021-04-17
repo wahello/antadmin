@@ -68,9 +68,25 @@ func (uc *UserCreate) SetCreatedBy(s string) *UserCreate {
 	return uc
 }
 
+// SetNillableCreatedBy sets the "createdBy" field if the given value is not nil.
+func (uc *UserCreate) SetNillableCreatedBy(s *string) *UserCreate {
+	if s != nil {
+		uc.SetCreatedBy(*s)
+	}
+	return uc
+}
+
 // SetUpdatedBy sets the "updatedBy" field.
 func (uc *UserCreate) SetUpdatedBy(s string) *UserCreate {
 	uc.mutation.SetUpdatedBy(s)
+	return uc
+}
+
+// SetNillableUpdatedBy sets the "updatedBy" field if the given value is not nil.
+func (uc *UserCreate) SetNillableUpdatedBy(s *string) *UserCreate {
+	if s != nil {
+		uc.SetUpdatedBy(*s)
+	}
 	return uc
 }
 
@@ -117,6 +133,14 @@ func (uc *UserCreate) SetNillableEmail(s *string) *UserCreate {
 // SetAvatar sets the "avatar" field.
 func (uc *UserCreate) SetAvatar(s string) *UserCreate {
 	uc.mutation.SetAvatar(s)
+	return uc
+}
+
+// SetNillableAvatar sets the "avatar" field if the given value is not nil.
+func (uc *UserCreate) SetNillableAvatar(s *string) *UserCreate {
+	if s != nil {
+		uc.SetAvatar(*s)
+	}
 	return uc
 }
 
@@ -244,12 +268,6 @@ func (uc *UserCreate) check() error {
 	if _, ok := uc.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updatedAt", err: errors.New("ent: missing required field \"updatedAt\"")}
 	}
-	if _, ok := uc.mutation.CreatedBy(); !ok {
-		return &ValidationError{Name: "createdBy", err: errors.New("ent: missing required field \"createdBy\"")}
-	}
-	if _, ok := uc.mutation.UpdatedBy(); !ok {
-		return &ValidationError{Name: "updatedBy", err: errors.New("ent: missing required field \"updatedBy\"")}
-	}
 	if _, ok := uc.mutation.Username(); !ok {
 		return &ValidationError{Name: "username", err: errors.New("ent: missing required field \"username\"")}
 	}
@@ -265,9 +283,6 @@ func (uc *UserCreate) check() error {
 		if err := user.PhoneValidator(v); err != nil {
 			return &ValidationError{Name: "phone", err: fmt.Errorf("ent: validator failed for field \"phone\": %w", err)}
 		}
-	}
-	if _, ok := uc.mutation.Avatar(); !ok {
-		return &ValidationError{Name: "avatar", err: errors.New("ent: missing required field \"avatar\"")}
 	}
 	if _, ok := uc.mutation.Gender(); !ok {
 		return &ValidationError{Name: "gender", err: errors.New("ent: missing required field \"gender\"")}

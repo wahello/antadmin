@@ -515,6 +515,20 @@ func CreatedByHasSuffix(v string) predicate.User {
 	})
 }
 
+// CreatedByIsNil applies the IsNil predicate on the "createdBy" field.
+func CreatedByIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCreatedBy)))
+	})
+}
+
+// CreatedByNotNil applies the NotNil predicate on the "createdBy" field.
+func CreatedByNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCreatedBy)))
+	})
+}
+
 // CreatedByEqualFold applies the EqualFold predicate on the "createdBy" field.
 func CreatedByEqualFold(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -623,6 +637,20 @@ func UpdatedByHasPrefix(v string) predicate.User {
 func UpdatedByHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldUpdatedBy), v))
+	})
+}
+
+// UpdatedByIsNil applies the IsNil predicate on the "updatedBy" field.
+func UpdatedByIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldUpdatedBy)))
+	})
+}
+
+// UpdatedByNotNil applies the NotNil predicate on the "updatedBy" field.
+func UpdatedByNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldUpdatedBy)))
 	})
 }
 
@@ -1206,6 +1234,20 @@ func AvatarHasPrefix(v string) predicate.User {
 func AvatarHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldAvatar), v))
+	})
+}
+
+// AvatarIsNil applies the IsNil predicate on the "avatar" field.
+func AvatarIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldAvatar)))
+	})
+}
+
+// AvatarNotNil applies the NotNil predicate on the "avatar" field.
+func AvatarNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldAvatar)))
 	})
 }
 

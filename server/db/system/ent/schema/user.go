@@ -41,6 +41,7 @@ func (User) Fields() []ent.Field {
 			Unique().
 			Comment("邮箱"),
 		field.String("avatar").
+			Optional().
 			Comment("头像"),
 		field.Int("gender").
 			Min(0).

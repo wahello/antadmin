@@ -38,8 +38,10 @@ func (CommonMixin) Fields() []ent.Field {
 			Nillable().
 			Comment("删除时间"),
 		field.String("createdBy").
+			Optional().
 			Comment("创建者"),
 		field.String("updatedBy").
+			Optional().
 			Comment("修改者"),
 	}
 }

@@ -288,9 +288,22 @@ func (m *UserMutation) OldCreatedBy(ctx context.Context) (v string, err error) {
 	return oldValue.CreatedBy, nil
 }
 
+// ClearCreatedBy clears the value of the "createdBy" field.
+func (m *UserMutation) ClearCreatedBy() {
+	m.createdBy = nil
+	m.clearedFields[user.FieldCreatedBy] = struct{}{}
+}
+
+// CreatedByCleared returns if the "createdBy" field was cleared in this mutation.
+func (m *UserMutation) CreatedByCleared() bool {
+	_, ok := m.clearedFields[user.FieldCreatedBy]
+	return ok
+}
+
 // ResetCreatedBy resets all changes to the "createdBy" field.
 func (m *UserMutation) ResetCreatedBy() {
 	m.createdBy = nil
+	delete(m.clearedFields, user.FieldCreatedBy)
 }
 
 // SetUpdatedBy sets the "updatedBy" field.
@@ -324,9 +337,22 @@ func (m *UserMutation) OldUpdatedBy(ctx context.Context) (v string, err error) {
 	return oldValue.UpdatedBy, nil
 }
 
+// ClearUpdatedBy clears the value of the "updatedBy" field.
+func (m *UserMutation) ClearUpdatedBy() {
+	m.updatedBy = nil
+	m.clearedFields[user.FieldUpdatedBy] = struct{}{}
+}
+
+// UpdatedByCleared returns if the "updatedBy" field was cleared in this mutation.
+func (m *UserMutation) UpdatedByCleared() bool {
+	_, ok := m.clearedFields[user.FieldUpdatedBy]
+	return ok
+}
+
 // ResetUpdatedBy resets all changes to the "updatedBy" field.
 func (m *UserMutation) ResetUpdatedBy() {
 	m.updatedBy = nil
+	delete(m.clearedFields, user.FieldUpdatedBy)
 }
 
 // SetUsername sets the "username" field.
@@ -530,9 +556,22 @@ func (m *UserMutation) OldAvatar(ctx context.Context) (v string, err error) {
 	return oldValue.Avatar, nil
 }
 
+// ClearAvatar clears the value of the "avatar" field.
+func (m *UserMutation) ClearAvatar() {
+	m.avatar = nil
+	m.clearedFields[user.FieldAvatar] = struct{}{}
+}
+
+// AvatarCleared returns if the "avatar" field was cleared in this mutation.
+func (m *UserMutation) AvatarCleared() bool {
+	_, ok := m.clearedFields[user.FieldAvatar]
+	return ok
+}
+
 // ResetAvatar resets all changes to the "avatar" field.
 func (m *UserMutation) ResetAvatar() {
 	m.avatar = nil
+	delete(m.clearedFields, user.FieldAvatar)
 }
 
 // SetGender sets the "gender" field.
@@ -884,11 +923,20 @@ func (m *UserMutation) ClearedFields() []string {
 	if m.FieldCleared(user.FieldDeletedAt) {
 		fields = append(fields, user.FieldDeletedAt)
 	}
+	if m.FieldCleared(user.FieldCreatedBy) {
+		fields = append(fields, user.FieldCreatedBy)
+	}
+	if m.FieldCleared(user.FieldUpdatedBy) {
+		fields = append(fields, user.FieldUpdatedBy)
+	}
 	if m.FieldCleared(user.FieldPhone) {
 		fields = append(fields, user.FieldPhone)
 	}
 	if m.FieldCleared(user.FieldEmail) {
 		fields = append(fields, user.FieldEmail)
+	}
+	if m.FieldCleared(user.FieldAvatar) {
+		fields = append(fields, user.FieldAvatar)
 	}
 	return fields
 }
@@ -907,11 +955,20 @@ func (m *UserMutation) ClearField(name string) error {
 	case user.FieldDeletedAt:
 		m.ClearDeletedAt()
 		return nil
+	case user.FieldCreatedBy:
+		m.ClearCreatedBy()
+		return nil
+	case user.FieldUpdatedBy:
+		m.ClearUpdatedBy()
+		return nil
 	case user.FieldPhone:
 		m.ClearPhone()
 		return nil
 	case user.FieldEmail:
 		m.ClearEmail()
+		return nil
+	case user.FieldAvatar:
+		m.ClearAvatar()
 		return nil
 	}
 	return fmt.Errorf("unknown User nullable field %s", name)
