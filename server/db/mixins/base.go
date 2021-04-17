@@ -80,7 +80,7 @@ func (BaseMixin) Hooks() []ent.Hook {
 				}
 
 				var username string
-				if customCtx := shared.Context.Get(ctx); customCtx != nil && customCtx.User == nil {
+				if customCtx := shared.Context.Get(ctx); customCtx != nil && customCtx.User != nil {
 					username = customCtx.User.Username
 				}
 
