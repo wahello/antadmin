@@ -24,6 +24,7 @@ func (Role) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name").
 			NotEmpty().
+			Unique().
 			Comment("角色名称"),
 		field.Bool("disabled").
 			Default(false).

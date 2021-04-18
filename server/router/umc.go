@@ -20,10 +20,18 @@ func initUmcRouter(group *ghttp.RouterGroup) {
 	group.Group("/api/umc", func(group *ghttp.RouterGroup) {
 		group.Middleware(middleware.Auth)
 
+		// 用户模块
 		group.POST("/user", api.User.CreateUser)
 		group.PUT("/user/:id", api.User.UpdateUser)
 		group.DELETE("/user/:id", api.User.DeleteUser)
 		group.GET("/user/:id", api.User.GetUser)
 		group.GET("/user", api.User.ListUser)
+
+		// 角色模块
+		group.POST("/role", api.Role.CreateRole)
+		group.PUT("/role/:id", api.Role.UpdateRole)
+		group.DELETE("/role/:id", api.Role.DeleteRole)
+		group.GET("/role/:id", api.Role.GetRole)
+		group.GET("/role", api.Role.ListRole)
 	})
 }

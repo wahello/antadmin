@@ -59,7 +59,7 @@ const (
 	MissRequiredParameterMsg  = "缺失必选参数 (%s)"
 	ResubmitErrorMsg          = "请勿重复提交"
 	JSONErrorMsg              = "无效的JSON"
-	DuplicateErrorMsg         = "(%s)已存在，请勿重新创建"
+	DuplicateErrorMsg         = "%s (%s) 已被占用"
 	SourceNotFoundMsg         = "该资源不存在或权限不足"
 	TimestampMismatchErrorMsg = "提交失败，该资源已被她/他人更新，请刷新后重试"
 )

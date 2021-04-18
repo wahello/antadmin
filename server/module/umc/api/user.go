@@ -15,8 +15,32 @@ var User = userAPI{}
 
 type userAPI struct{}
 
+// checkSaveDuplicate 唯一性检查
+func (a *userAPI) checkSaveDuplicate(r *ghttp.Request, username, email, phone string) {
+	if username != "" && !service.User.CheckUsername(r.Context(), username) {
+		resp.Error(r).
+			SetCode(errcode.DuplicateError).
+			SetMsgf(errcode.DuplicateErrorMsg, "用户名", username).
+			Json()
+	}
+
+	if email != "" && !service.User.CheckEmail(r.Context(), email) {
+		resp.Error(r).
+			SetCode(errcode.DuplicateError).
+			SetMsgf(errcode.DuplicateErrorMsg, "邮箱", email).
+			Json()
+	}
+
+	if phone != "" && !service.User.CheckPhone(r.Context(), phone) {
+		resp.Error(r).
+			SetCode(errcode.DuplicateError).
+			SetMsgf(errcode.DuplicateErrorMsg, "手机号", phone).
+			Json()
+	}
+}
+
 // CreateUser 创建用户
-func (userAPI) CreateUser(r *ghttp.Request) {
+func (a *userAPI) CreateUser(r *ghttp.Request) {
 	var req *define.CreateUserRequest
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
@@ -25,26 +49,7 @@ func (userAPI) CreateUser(r *ghttp.Request) {
 			Json()
 	}
 
-	if !service.User.CheckUsername(r.Context(), req.Username) {
-		resp.Error(r).
-			SetCode(errcode.ExistsUserName).
-			SetMsgf(errcode.ExistsUserNameMsg, req.Username).
-			Json()
-	}
-
-	if req.Email != nil && !service.User.CheckEmail(r.Context(), *req.Email) {
-		resp.Error(r).
-			SetCode(errcode.ExistsUserEmail).
-			SetMsgf(errcode.ExistsUserEmailMsg, *req.Email).
-			Json()
-	}
-
-	if req.Phone != nil && !service.User.CheckPhone(r.Context(), *req.Phone) {
-		resp.Error(r).
-			SetCode(errcode.ExistsUserPhone).
-			SetMsgf(errcode.ExistsUserPhoneMsg, *req.Phone).
-			Json()
-	}
+	a.checkSaveDuplicate(r, req.Username, *req.Email, *req.Phone)
 
 	if res, err := service.User.CreateUser(r.Context(), req); err != nil {
 		resp.Error(r).
@@ -59,7 +64,7 @@ func (userAPI) CreateUser(r *ghttp.Request) {
 }
 
 // UpdateUser 修改用户信息
-func (userAPI) UpdateUser(r *ghttp.Request) {
+func (a *userAPI) UpdateUser(r *ghttp.Request) {
 	var req *define.UpdateUserRequest
 	id := r.GetString("id")
 	if err := r.Parse(&req); err != nil {
@@ -69,19 +74,7 @@ func (userAPI) UpdateUser(r *ghttp.Request) {
 			Json()
 	}
 
-	if req.Email != nil && !service.User.CheckEmail(r.Context(), *req.Email) {
-		resp.Error(r).
-			SetCode(errcode.ExistsUserEmail).
-			SetMsg(errcode.ExistsUserEmailMsg).
-			Json()
-	}
-
-	if req.Phone != nil && !service.User.CheckPhone(r.Context(), *req.Phone) {
-		resp.Error(r).
-			SetCode(errcode.ExistsUserPhone).
-			SetMsg(errcode.ExistsUserPhoneMsg).
-			Json()
-	}
+	a.checkSaveDuplicate(r, "", *req.Email, *req.Phone)
 
 	if res, err := service.User.UpdateUser(r.Context(), id, req); err != nil {
 		resp.Error(r).
@@ -96,7 +89,7 @@ func (userAPI) UpdateUser(r *ghttp.Request) {
 }
 
 // DeleteUser 删除用户
-func (userAPI) DeleteUser(r *ghttp.Request) {
+func (a *userAPI) DeleteUser(r *ghttp.Request) {
 	id := r.GetString("id")
 	if err := service.User.DeleteUser(r.Context(), id); err != nil {
 		resp.Error(r).
@@ -109,7 +102,7 @@ func (userAPI) DeleteUser(r *ghttp.Request) {
 }
 
 // ListUser 用户列表
-func (userAPI) ListUser(r *ghttp.Request) {
+func (a *userAPI) ListUser(r *ghttp.Request) {
 	if res, qty, err := service.User.ListUser(r.Context()); err != nil {
 		resp.Error(r).
 			SetCode(errcode.DaoListError).
@@ -128,7 +121,7 @@ func (userAPI) ListUser(r *ghttp.Request) {
 }
 
 // GetUser 用户详情
-func (userAPI) GetUser(r *ghttp.Request) {
+func (a *userAPI) GetUser(r *ghttp.Request) {
 	id := r.GetString("id")
 	if res, err := service.User.GetUser(r.Context(), id); err != nil {
 		resp.Error(r).
@@ -143,7 +136,7 @@ func (userAPI) GetUser(r *ghttp.Request) {
 }
 
 // SignIn 用户登录
-func (userAPI) SignIn(r *ghttp.Request) {
+func (a *userAPI) SignIn(r *ghttp.Request) {
 	var req *define.UserSignInRequest
 	if err := r.Parse(&req); err != nil {
 		resp.Error(r).
@@ -182,7 +175,7 @@ func (userAPI) SignIn(r *ghttp.Request) {
 }
 
 // GetProfile 获取个人信息
-func (userAPI) GetProfile(r *ghttp.Request) {
+func (a *userAPI) GetProfile(r *ghttp.Request) {
 	if customCtx := shared.Context.Get(r.Context()); customCtx != nil && customCtx.User != nil {
 		if res, err := service.User.GetUser(r.Context(), customCtx.User.ID); err != nil {
 			resp.Error(r).
@@ -203,7 +196,7 @@ func (userAPI) GetProfile(r *ghttp.Request) {
 }
 
 // UpdateProfile 更新个人信息
-func (userAPI) UpdateProfile(r *ghttp.Request) {
+func (a *userAPI) UpdateProfile(r *ghttp.Request) {
 	if customCtx := shared.Context.Get(r.Context()); customCtx != nil && customCtx.User != nil {
 		var req *define.UpdateProfileRequest
 		if err := r.Parse(&req); err != nil {
@@ -212,6 +205,8 @@ func (userAPI) UpdateProfile(r *ghttp.Request) {
 				SetError(err).
 				Json()
 		}
+
+		a.checkSaveDuplicate(r, "", *req.Email, *req.Phone)
 
 		if res, err := service.User.UpdateProfile(r.Context(), customCtx.User.ID, req); err != nil {
 			resp.Error(r).
@@ -232,7 +227,7 @@ func (userAPI) UpdateProfile(r *ghttp.Request) {
 }
 
 // UpdatePassword 更新个人密码
-func (userAPI) UpdatePassword(r *ghttp.Request) {
+func (a *userAPI) UpdatePassword(r *ghttp.Request) {
 	if customCtx := shared.Context.Get(r.Context()); customCtx != nil && customCtx.User != nil {
 		var req *define.UpdatePasswordRequest
 		if err := r.Parse(&req); err != nil {
