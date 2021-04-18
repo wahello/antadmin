@@ -17,5 +17,8 @@ func init() {
 
 		// 初始化用户管理模块路由
 		initUmcRouter(group)
+
+		// 初始化系统管理模块路由
+		initSmcRouter(group)
 	})
 }

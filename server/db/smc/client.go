@@ -1,12 +1,12 @@
-package umc
+package smc
 
 import (
 	"context"
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/antbiz/antadmin/db/helper"
-	"github.com/antbiz/antadmin/db/umc/ent"
-	_ "github.com/antbiz/antadmin/db/umc/ent/runtime"
+	"github.com/antbiz/antadmin/db/smc/ent"
+	_ "github.com/antbiz/antadmin/db/smc/ent/runtime"
 	"github.com/gogf/gf/frame/g"
 )
 
@@ -28,7 +28,7 @@ func newClient(drv *sql.Driver) Client {
 	})
 
 	if err := client.Schema.Create(context.Background()); err != nil {
-		g.Log().Fatalf("[Module UMC] - failed creating schema resources: %v", err)
+		g.Log().Fatalf("[Module SMC] - failed creating schema resources: %v", err)
 	}
 
 	return client
@@ -38,14 +38,14 @@ func newClient(drv *sql.Driver) Client {
 func InitClient() (master Client, slave Client, err error) {
 	masterDrv, er := helper.GetMasterDriver()
 	if er != nil {
-		g.Log().Errorf("init umc-module master db failed: %v", er)
+		g.Log().Errorf("init smc-module master db failed: %v", er)
 		return nil, nil, er
 	}
 	master = newClient(masterDrv)
 
 	slaveDrv, er := helper.GetSlaveDriver()
 	if er != nil {
-		g.Log().Errorf("init umc-module slave db failed: %v", er)
+		g.Log().Errorf("init smc-module slave db failed: %v", er)
 		slave = master
 	} else {
 		slave = newClient(slaveDrv)
