@@ -12,7 +12,9 @@ func initUmcRouter(group *ghttp.RouterGroup) {
 		group.POST("/signin", api.User.SignIn)
 
 		group.Middleware(middleware.Auth)
-		group.GET("/profile", api.User.Profile)
+		group.GET("/profile", api.User.GetProfile)
+		group.PUT("/profile", api.User.UpdateProfile)
+		group.PUT("/update_password", api.User.UpdatePassword)
 	})
 
 	group.Group("/api/umc", func(group *ghttp.RouterGroup) {
@@ -23,6 +25,5 @@ func initUmcRouter(group *ghttp.RouterGroup) {
 		group.DELETE("/user/:id", api.User.DeleteUser)
 		group.GET("/user/:id", api.User.GetUser)
 		group.GET("/user", api.User.ListUser)
-		group.POST("/user/disabled", api.User.UpdateUserStatus)
 	})
 }

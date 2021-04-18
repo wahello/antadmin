@@ -30,6 +30,7 @@ func (s *userService) CreateUser(ctx context.Context, req *define.CreateUserRequ
 		SetNillableEmail(req.Email).
 		SetAvatar(req.Avatar).
 		SetGender(req.Gender).
+		SetDisabled(req.Disabled).
 		Save(ctx)
 	return
 }
@@ -42,6 +43,7 @@ func (s *userService) UpdateUser(ctx context.Context, id string, req *define.Upd
 		SetNillableEmail(req.Email).
 		SetAvatar(req.Avatar).
 		SetGender(req.Gender).
+		SetDisabled(req.Disabled).
 		Save(ctx)
 	return
 }
@@ -137,11 +139,23 @@ func (s *userService) CheckEmail(ctx context.Context, email string) bool {
 	return qty == 0
 }
 
-// UpdateUserStatus 更新用户状态：启用/禁用
-func (s *userService) UpdateUserStatus(ctx context.Context, req *define.UpdateUserStatusRequest) error {
+// UpdateUserStatus 用户更新个人信息
+func (s *userService) UpdateProfile(ctx context.Context, id string, req *define.UpdateProfileRequest) (res *ent.User, err error) {
+	res, err = db.UmcClientMaster.User.
+		UpdateOneID(id).
+		SetNillablePhone(req.Phone).
+		SetNillableEmail(req.Email).
+		SetAvatar(req.Avatar).
+		SetGender(req.Gender).
+		Save(ctx)
+	return
+}
+
+// UpdatePassword 用户更新个人密码(已经加密过的密文密码)
+func (s *userService) UpdateEncryptPassword(ctx context.Context, id, password string) error {
 	_, err := db.UmcClientMaster.User.
-		UpdateOneID(req.ID).
-		SetDisabled(req.Disabled).
+		UpdateOneID(id).
+		SetPassword(password).
 		Save(ctx)
 	return err
 }

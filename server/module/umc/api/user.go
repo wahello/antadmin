@@ -142,26 +142,6 @@ func (userAPI) GetUser(r *ghttp.Request) {
 	}
 }
 
-// UpdateUserStatus 禁用或启用某个用户
-func (userAPI) UpdateUserStatus(r *ghttp.Request) {
-	var req *define.UpdateUserStatusRequest
-	if err := r.Parse(&req); err != nil {
-		resp.Error(r).
-			SetCode(errcode.ParameterBindError).
-			SetError(err).
-			Json()
-	}
-
-	if err := service.User.UpdateUserStatus(r.Context(), req); err != nil {
-		resp.Error(r).
-			SetCode(errcode.DaoUpdateError).
-			SetMsg(errcode.DaoUpdateErrorMsg).
-			Json()
-	} else {
-		resp.Success(r).Json()
-	}
-}
-
 // SignIn 用户登录
 func (userAPI) SignIn(r *ghttp.Request) {
 	var req *define.UserSignInRequest
@@ -201,8 +181,8 @@ func (userAPI) SignIn(r *ghttp.Request) {
 		Json()
 }
 
-// Profile 当前会话用户详情
-func (userAPI) Profile(r *ghttp.Request) {
+// GetProfile 获取个人信息
+func (userAPI) GetProfile(r *ghttp.Request) {
 	if customCtx := shared.Context.Get(r.Context()); customCtx != nil && customCtx.User != nil {
 		if res, err := service.User.GetUser(r.Context(), customCtx.User.ID); err != nil {
 			resp.Error(r).
@@ -213,6 +193,77 @@ func (userAPI) Profile(r *ghttp.Request) {
 			resp.Success(r).
 				SetData(res).
 				Json()
+		}
+	} else {
+		resp.Error(r).
+			SetCode(errcode.AuthorizationError).
+			SetMsg(errcode.AuthorizationErrorMsg).
+			Json()
+	}
+}
+
+// UpdateProfile 更新个人信息
+func (userAPI) UpdateProfile(r *ghttp.Request) {
+	if customCtx := shared.Context.Get(r.Context()); customCtx != nil && customCtx.User != nil {
+		var req *define.UpdateProfileRequest
+		if err := r.Parse(&req); err != nil {
+			resp.Error(r).
+				SetCode(errcode.ParameterBindError).
+				SetError(err).
+				Json()
+		}
+
+		if res, err := service.User.UpdateProfile(r.Context(), customCtx.User.ID, req); err != nil {
+			resp.Error(r).
+				SetCode(errcode.DaoUpdateError).
+				SetMsg(errcode.DaoUpdateErrorMsg).
+				Json()
+		} else {
+			resp.Success(r).
+				SetData(res).
+				Json()
+		}
+	} else {
+		resp.Error(r).
+			SetCode(errcode.AuthorizationError).
+			SetMsg(errcode.AuthorizationErrorMsg).
+			Json()
+	}
+}
+
+// UpdatePassword 更新个人密码
+func (userAPI) UpdatePassword(r *ghttp.Request) {
+	if customCtx := shared.Context.Get(r.Context()); customCtx != nil && customCtx.User != nil {
+		var req *define.UpdatePasswordRequest
+		if err := r.Parse(&req); err != nil {
+			resp.Error(r).
+				SetCode(errcode.ParameterBindError).
+				SetError(err).
+				Json()
+		}
+
+		if u, err := service.User.GetUser(r.Context(), customCtx.User.ID); err != nil {
+			resp.Error(r).
+				SetCode(errcode.DaoGetError).
+				SetMsg(errcode.DaoGetErrorMsg).
+				Json()
+		} else {
+			if u.Password == service.User.EncryptPassword(u.Username, req.OldPassword) {
+				newEncryptPassword := service.User.EncryptPassword(u.Username, req.NewPassword)
+				if err := service.User.UpdateEncryptPassword(r.Context(), customCtx.User.ID, newEncryptPassword); err != nil {
+					resp.Error(r).
+						SetCode(errcode.DaoUpdateError).
+						SetMsg(errcode.DaoUpdateErrorMsg).
+						Json()
+				} else {
+					resp.Success(r).Json()
+				}
+			} else {
+				resp.Error(r).
+					SetCode(errcode.IncorrectOldPassword).
+					SetMsg(errcode.IncorrectOldPasswordMsg).
+					Json()
+			}
 		}
 	} else {
 		resp.Error(r).
