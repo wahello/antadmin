@@ -16,8 +16,19 @@
     ],
   },
   {
-    path: '/welcome',
+    path: '/account',
+    hideInMenu: true,
+    routes: [
+      {
+        name: '个人设置',
+        path: '/account/settings',
+        component: './user/settings',
+      },
+    ]
+  },
+  {
     name: '欢迎',
+    path: '/welcome',
     icon: 'smile',
     component: './Welcome',
   },
